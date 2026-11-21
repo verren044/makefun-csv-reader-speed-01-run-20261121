@@ -1,8 +1,8 @@
 # csv-reader-speed-01-run-20261121 — fast broken-CSV reader
 
 [![make.fun](https://make.fun/badge/csv-reader-speed-01-run-20261121.svg)](https://make.fun)
-[![rank](https://make.fun/badge/csv-reader-speed-01-run-20261121/verren044/csv-reader-speed-01-run-20261121/rank.svg)](https://make.fun)
-[![reward](https://make.fun/badge/csv-reader-speed-01-run-20261121/verren044/csv-reader-speed-01-run-20261121/reward.svg)](https://make.fun)
+[![rank](https://make.fun/badge/csv-reader-speed-01-run-20261121/verren044/makefun-csv-reader-speed-01-run-20261121/rank.svg)](https://make.fun)
+[![reward](https://make.fun/badge/csv-reader-speed-01-run-20261121/verren044/makefun-csv-reader-speed-01-run-20261121/reward.svg)](https://make.fun)
 
 A faster drop-in for make.fun's own csv-reader 1.0.0: `solve.js` answers
 exactly as csv-reader does on every input (`{columns, rows, errors}` for
