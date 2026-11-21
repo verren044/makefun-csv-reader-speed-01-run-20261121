@@ -1,0 +1,47 @@
+csv-reader-speed-01-run-20261121 — BUILDER DONE
+===============================================
+Contest: Read broken CSV files faster, 21 November 2026
+Prize: $100 (10 x $10) | Entries deadline: 23 Nov 2026 09:42 WIB
+Entry name: fast broken-CSV reader (csv-reader 1.0.0 drop-in)
+
+Approach
+--------
+solve.js (ES module, stdlib only, no network, deterministic) replaces the
+reference's char-at-a-time parse with native indexOf/slice scanning:
+- Unquoted field: indexOf(',') + indexOf('\n') find the delimiter, one
+  slice is the field; CRLF recognised by the char before '\n'. Only a
+  stray CR inside a field falls back to a char loop.
+- Quoted field: indexOf('"') finds the closing/doubled quote, slices
+  accumulate; only segments with a line break pay for CR->LF transform
+  and line recount.
+- BOM, empty lines, stray-CR-only lines, short/long rows, and all error
+  records (stray_cr, unterminated_quote, quote_junk, short_row, long_row)
+  in exact reference order. main.ts is the baseline driver verbatim.
+
+Benchmarks (practice set, 6 cases, 10,193,953 bytes, Node v24.22.1)
+-------------------------------------------------------------------
+- solve-only median: mine 177 ms (57.5 MB/s) vs baseline 814 ms (12.5 MB/s)
+  => ~4.6x faster than csv-reader 1.0.0
+- Full main.ts wall: mine 762-1158 ms vs baseline 1438-1835 ms
+
+Verification
+------------
+- Practice set: 6/6 cases identical to practice/reference/expected.json
+  (rows/errors: g-0001 12414/318, g-0002 14171/382, g-0003 6250/179,
+  g-0004 7582/229, g-0005 9811/270, g-0006 13464/392)
+- Edge cases: 124/124 differential pass vs reference readCsv
+- Fuzz: 3000/3000 differential pass vs reference
+- Determinism: two main.ts runs, answers.json sha256 identical:
+  bb5b6cc5c523edf0b18a20cd1f577b0d461b3ae021fd3ab2c9b4e4a5f01002ed
+- Repo size ~16 KB tracked, well under the 1 MiB cap
+
+Commit
+------
+Local git commit: 67b250d7b93b67b2661dd876b1ac4f162d13a16e
+Files: solve.js, main.ts, package.json, README.md, LICENSE, BUILD_LOG.md,
+.makefun/owner.json (wallet 5dzkJVQkKc2V2mMuQDsfv8EJwtw3uLDMARNVHkjmByaX)
+
+Status: BUILT + VERIFIED + COMMITTED LOCALLY.
+NOT pushed, NO GitHub repo created, NOT submitted (per task instructions).
+Next step for parent agent: create public repo verren044/csv-reader-speed-01-run-20261121,
+push, kit check, submit before 23 Nov 2026 09:42 WIB.
